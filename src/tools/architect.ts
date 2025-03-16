@@ -1,6 +1,4 @@
 import { z } from "zod";
-import OpenAI from "openai";
-import { OPENAI_API_KEY } from "../env/keys.js";
 
 /**
  * Architect tool
@@ -22,45 +20,35 @@ export const ArchitectToolSchema = z.object({
 export async function runArchitectTool(
   args: z.infer<typeof ArchitectToolSchema>,
 ) {
-  // Instantiate the new OpenAI client
-  const openai = new OpenAI({
-    apiKey: OPENAI_API_KEY,
-  });
-
   const { task, code } = args;
-  const systemPrompt = `You are an expert software architect. Given a task and some code, outline the steps that an AI coding agent should take to complete or improve the code.`;
-
-  // We'll prompt the model with both the task and code
-  const userPrompt = `Task: ${task}\n\nCode:\n${code}\n\nPlease provide a step-by-step plan.`;
 
   try {
-    const response = await openai.chat.completions.create({
-      model: "o3-mini-2025-01-31",
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: userPrompt },
-      ],
-    });
-
-    // Extract the content from the assistant's message (if available)
-    const assistantMessage =
-      response.choices?.[0]?.message?.content ?? "No response from model.";
+    // Simple analysis without external API calls
+    const analysis = `Task Analysis for: ${task}\n\n` +
+      `Code Analysis:\n` +
+      `- Lines of code: ${code.split('\n').length}\n` +
+      `- Contains functions: ${code.includes('function')}\n` +
+      `- Contains classes: ${code.includes('class')}\n\n` +
+      `Suggested Steps:\n` +
+      `1. Review the existing code structure\n` +
+      `2. Identify areas for improvement\n` +
+      `3. Plan implementation changes\n` +
+      `4. Test the modifications`;
 
     return {
       content: [
         {
           type: "text",
-          text: assistantMessage,
+          text: analysis,
         },
       ],
     };
   } catch (error: any) {
-    // If the request fails, return the error as text
     return {
       content: [
         {
           type: "text",
-          text: `OpenAI Error: ${error.message || error}`,
+          text: `Error: ${error.message || error}`,
         },
       ],
     };

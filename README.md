@@ -16,90 +16,136 @@ Take UI design screenshots and use them with the composer agent.
 
 Use git diffs to trigger code reviews.
 
-## 🚀 Getting Started
+## 🚀 Quick Start
 
-### 1. Environment Setup
+### Prerequisites
+- Node.js >= 18.0.0
+- npm >= 7.0.0
+- Cursor Editor
 
-First, you'll need to set up your environment variables. Create a file at `src/env/keys.ts`:
+### Installation
 
-```typescript
-export const OPENAI_API_KEY = "your_key_here";
-// Add any other keys you need
+1. Clone or download this repository:
+```bash
+git clone <repository-url>
+# or download and extract the zip file
 ```
 
-> ⚠️ **Security Note**: Storing API keys directly in source code is not recommended for production environments. This is only for local development and learning purposes. You can set the env var inline in the Cursor MCP interface as well.
+2. Navigate to the project directory:
+```bash
+cd mcp
+```
 
-### 2. Installation
+3. Run the setup script:
+```bash
+node setup.js
+```
+
+The setup script will:
+- Install all dependencies
+- Build the project
+- Create necessary configuration files
+- Show you the exact command to use in Cursor
+
+### Starting the Server
 
 ```bash
-npm install
-# or
-yarn install
+node clients.js
 ```
 
-### 3. Build the Server
+### Configuring Cursor
 
+1. Open Cursor
+2. Go to Settings > MCP Servers
+3. Add a new MCP server:
+   - Name: AI (or any name you prefer)
+   - Type: stdio
+   - Command: `node path/to/your/mcp/clients.js`
+   - (The setup script will show you the exact full path)
+4. Click Save
+
+## 🛠️ Available Tools
+
+### 📸 Screenshot Tool
+- Captures screenshots of web pages
+- Supports both full URLs and local paths
+- Saves screenshots to specified locations
+
+### 🎨 Architect Tool
+- Analyzes code structure
+- Provides implementation suggestions
+- Helps with architectural decisions
+
+### 🔍 Code Review Tool
+- Performs git-based code reviews
+- Shows diffs against main branch
+- Provides review suggestions
+
+### 📝 Journaling Tool
+- Start development sessions
+- Record progress notes
+- Get session summaries
+- View recent entries
+
+## 📦 Project Structure
+
+```
+mcp/
+├── src/               # Source code
+│   ├── tools/        # Tool implementations
+│   └── index.ts      # Main server file
+├── clients.js        # Client script for running the server
+├── setup.js          # Setup and configuration script
+├── package.json      # Dependencies and scripts
+└── tsconfig.json     # TypeScript configuration
+```
+
+## 🔧 Development
+
+### Building
 ```bash
 npm run build
 ```
 
-### 4. Adding to Cursor
-
-This project is designed to be used as an MCP server in Cursor. Here's how to set it up:
-
-1. Open Cursor
-2. Go to `Cursor Settings > Features > MCP`
-3. Click `+ Add New MCP Server`
-4. Fill out the form:
-   - **Name**: AI Development Assistant
-   - **Type**: stdio
-   - **Command**: `node /path/to/your/project/dist/index.js`
-
-> 📘 **Pro Tip**: You might need to use the full path to your project's built index.js file.
-
-After adding the server, you should see your tools listed under "Available Tools". If not, try clicking the refresh button in the top right corner of the MCP server section.
-
-For more details about MCP setup, check out the [Cursor MCP Documentation](https://docs.cursor.com/advanced/model-context-protocol).
-
-## 🛠️ Using the Tools
-
-Once configured, you can use these tools directly in Cursor's Composer. The AI will automatically suggest using relevant tools, or you can explicitly request them by name or description.
-
-For example, try typing in Composer:
-
-- "Review this code for best practices"
-- "Help me architect a new feature"
-- "Analyze this UI screenshot"
-
-The agent will ask for your approval before making any tool calls.
-
-> 📘 **Pro Tip**: You can update your .cursorrules file with instructions on how to use the tools for certain scenarios, and the agent will use the tools automatically.
-
-## 📁 Project Structure
-
+### Running in Development
+```bash
+npm start
 ```
-src/
-├── tools/
-│   ├── architect.ts    # Code structure generator
-│   ├── screenshot.ts   # Screenshot analysis tool
-│   └── codeReview.ts   # Code review tool
-├── env/
-│   └── keys.ts         # Environment configuration (add your API keys here!)
-└── index.ts           # Main entry point
+
+### Packaging
+```bash
+npm run package
 ```
+
+## 🚨 Troubleshooting
+
+If the server doesn't start:
+1. Check if Node.js and npm are installed correctly
+2. Make sure you ran the setup script
+3. Verify the path in your Cursor MCP settings
+4. Check the console output for any error messages
+
+The client script will automatically find the server in these locations:
+- Same directory as clients.js
+- One directory up from clients.js
+- Global npm installation
+- Current working directory
+
+## 📄 License
+
+MIT
 
 ## 🤝 Contributing
 
-Contributions welcome! Please feel free to submit a Pull Request.
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🐛 Issues & Support
+## 📫 Support
 
 Found a bug or need help? Open an issue with:
-
 1. What you were trying to do
 2. What happened instead
 3. Steps to reproduce
@@ -110,3 +156,146 @@ Found a bug or need help? Open an issue with:
 I'll be honest though, this is a tutorial demo, and not a production-ready tool so I likely won't be fixing issues. But feel free to fork it and make it your own!
 
 Made with ❤️ by developers, for developers
+
+# MCP Server
+
+A Model Context Protocol (MCP) server providing four powerful Cursor tools:
+1. Screenshot - Capture screenshots of web pages
+2. Architect - Analyze code and provide architectural insights
+3. Code Review - Perform git-based code reviews
+4. Journaling - Keep track of development sessions
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js >= 18.0.0
+- npm >= 7.0.0
+- Cursor Editor
+
+### Installation
+
+1. Clone or download this repository:
+```bash
+git clone <repository-url>
+# or download and extract the zip file
+```
+
+2. Navigate to the project directory:
+```bash
+cd mcp
+```
+
+3. Run the setup script:
+```bash
+node setup.js
+```
+
+The setup script will:
+- Install all dependencies
+- Build the project
+- Create necessary configuration files
+- Show you the exact command to use in Cursor
+
+### Starting the Server
+
+```bash
+node clients.js
+```
+
+### Configuring Cursor
+
+1. Open Cursor
+2. Go to Settings > MCP Servers
+3. Add a new MCP server:
+   - Name: AI (or any name you prefer)
+   - Type: stdio
+   - Command: `node path/to/your/mcp/clients.js`
+   - (The setup script will show you the exact full path)
+4. Click Save
+
+## 🛠️ Available Tools
+
+### 📸 Screenshot Tool
+- Captures screenshots of web pages
+- Supports both full URLs and local paths
+- Saves screenshots to specified locations
+
+### 🎨 Architect Tool
+- Analyzes code structure
+- Provides implementation suggestions
+- Helps with architectural decisions
+
+### 🔍 Code Review Tool
+- Performs git-based code reviews
+- Shows diffs against main branch
+- Provides review suggestions
+
+### 📝 Journaling Tool
+- Start development sessions
+- Record progress notes
+- Get session summaries
+- View recent entries
+
+## 📦 Project Structure
+
+```
+mcp/
+├── src/               # Source code
+│   ├── tools/        # Tool implementations
+│   └── index.ts      # Main server file
+├── clients.js        # Client script for running the server
+├── setup.js          # Setup and configuration script
+├── package.json      # Dependencies and scripts
+└── tsconfig.json     # TypeScript configuration
+```
+
+## 🔧 Development
+
+### Building
+```bash
+npm run build
+```
+
+### Running in Development
+```bash
+npm start
+```
+
+### Packaging
+```bash
+npm run package
+```
+
+## 🚨 Troubleshooting
+
+If the server doesn't start:
+1. Check if Node.js and npm are installed correctly
+2. Make sure you ran the setup script
+3. Verify the path in your Cursor MCP settings
+4. Check the console output for any error messages
+
+The client script will automatically find the server in these locations:
+- Same directory as clients.js
+- One directory up from clients.js
+- Global npm installation
+- Current working directory
+
+## 📄 License
+
+MIT
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## 📫 Support
+
+Found a bug or need help? Open an issue with:
+1. What you were trying to do
+2. What happened instead
+3. Steps to reproduce
+4. Your environment details
